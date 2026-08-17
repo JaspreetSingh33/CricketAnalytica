@@ -1,10 +1,14 @@
 # CricketAnalytica
 
-CricketAnalytica is a cricket analysis and player comparison platform that uses API-based data retrieval and LLM-based analysis to compare player performances.
+RAG-Based Cricket Analysis and Player Comparison
 
-The current version retrieves player statistics through the ESPN API and presents them in a simple and interactive interface. It focuses on comparing the batting performances of two players, allowing users to view their statistics side by side and receive a written comparison generated using the Google Gemini API.
+CricketAnalytica is a RAG-based cricket analysis and player comparison platform that combines API-based data retrieval with LLM-based analysis to compare player performances.
 
-The project is being developed as a broader cricket analysis platform, with the current implementation serving as the first version.
+The application dynamically retrieves relevant player statistics through the ESPN API based on the comparison requested by the user. The retrieved data is then used as contextual information for the Google Gemini API, which generates a written statistical comparison from the available player data.
+
+The current version focuses on comparing the batting performances of two players and presents their statistics in a simple and interactive interface.
+
+CricketAnalytica is being developed as a broader cricket analysis platform, with the current implementation serving as the first version and providing a foundation for expanding into additional formats, bowling, fielding, advanced analysis, and improved models.
 
 ## Features
 
@@ -37,23 +41,31 @@ The system is divided into a frontend, backend, data retrieval layer, and analys
         v                       v              v                 v
   HTML/CSS/JS              app.py          ESPN API         Gemini API
                                 |
-                 +--------------+--------------+
-                 |                             |
-                 v                             v
-          cricket_data.py              gemini_analysis.py
-                 |                             |
-                 v                             v
-          Player Statistics             Statistical Analysis
-                 |                             |
-                 +--------------+--------------+
+                                v
+                       Retrieval Layer
+                                |
+                                v
+                       Relevant Player Data
+                                |
+                                v
+                     Retrieved Context
+                                |
+                                v
+                    gemini_analysis.py
+                                |
+                                v
+                       Gemini LLM Analysis
+                                |
+                                v
+                       Statistical Analysis
                                 |
                                 v
                          Comparison Result
                                 |
                                 v
                              Frontend
+```
 
- ```
 ## Main Components
 
 ### Frontend
@@ -93,24 +105,25 @@ User enters two player names
     ESPN API retrieves data
             |
             v
-      Player statistics
+      Retrieval Layer
             |
             v
-    Statistics displayed
+    Relevant player data
             |
             v
-      Players compared
+     Retrieved context
             |
             v
-Relevant statistics sent to Gemini
+ Relevant context sent to Gemini
             |
             v
-  Statistical analysis generated
+      Gemini LLM generates
+       statistical analysis
             |
             v
-   Analysis displayed to user
-
+    Analysis displayed to user
 ```
+
 ## How the Comparison Works
 
 When the user enters two player names, the application first searches for the players and retrieves their available information and statistics.
